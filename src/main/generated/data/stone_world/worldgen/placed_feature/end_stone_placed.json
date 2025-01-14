@@ -1,0 +1,27 @@
+{
+  "feature": "stone_world:end_stone",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 50
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "absolute": 200
+        },
+        "min_inclusive": {
+          "absolute": -50
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

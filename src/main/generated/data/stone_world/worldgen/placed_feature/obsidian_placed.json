@@ -1,24 +1,24 @@
 {
-  "feature": "stone_world:obsidian_end_stone",
+  "feature": "stone_world:obsidian",
   "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 50
+    },
     {
       "type": "minecraft:in_square"
     },
     {
       "type": "minecraft:height_range",
       "height": {
-        "type": "minecraft:trapezoid",
+        "type": "minecraft:uniform",
         "max_inclusive": {
-          "absolute": 70
+          "absolute": 200
         },
         "min_inclusive": {
-          "absolute": -24
+          "absolute": -50
         }
       }
-    },
-    {
-      "type": "minecraft:count_on_every_layer",
-      "count": 10
     },
     {
       "type": "minecraft:biome"

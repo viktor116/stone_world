@@ -23,6 +23,9 @@ repositories {
 //		client = true
 //	}
 //}
+fabricApi {
+	configureDataGeneration()
+}
 
 dependencies {
 	// To change the versions see the gradle.properties file
