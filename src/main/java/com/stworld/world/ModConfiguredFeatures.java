@@ -10,10 +10,8 @@ import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.structure.rule.TagMatchRuleTest;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.FeatureConfig;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 
 import java.util.List;
 
@@ -24,8 +22,8 @@ import java.util.List;
  */
 public class ModConfiguredFeatures {
 
-    public static final RegistryKey<ConfiguredFeature<?, ?>> OBSIDIAN_KEY = registerKey("obsidian");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> END_STONE_KEY = registerKey("end_stone");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> SOUL_SAND_SURFACE_KEY = registerKey("soul_sand_surface");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> WITHER_ROSE_KEY = registerKey("wither_rose");
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> context) {
         RuleTest stoneReplaceables = new TagMatchRuleTest(BlockTags.STONE_ORE_REPLACEABLES);
@@ -48,15 +46,20 @@ public class ModConfiguredFeatures {
                 OreFeatureConfig.createTarget(new BlockMatchRuleTest(Blocks.END_STONE), Blocks.OBSIDIAN.getDefaultState())
         );
 
-        // 使用较小的矿脉大小和更分散的生成
-        register(context, OBSIDIAN_KEY, Feature.ORE, new OreFeatureConfig(mixedObsidianTargets, 50));
-        register(context, END_STONE_KEY, Feature.ORE, new OreFeatureConfig(mixedEndStoneTargets, 50));
+        // 地表灵魂沙：替换草方块和沙子
+        List<OreFeatureConfig.Target> soulSandTargets = List.of(
+                OreFeatureConfig.createTarget(grassBlockReplaceables, Blocks.SOUL_SAND.getDefaultState()),
+                OreFeatureConfig.createTarget(sandBlockReplaceables, Blocks.SOUL_SAND.getDefaultState())
+        );
+        register(context, SOUL_SAND_SURFACE_KEY, Feature.ORE, new OreFeatureConfig(soulSandTargets, 64));
 
-//        List<OreFeatureConfig.Target> obsidianPlaceGrass = List.of(OreFeatureConfig.createTarget(grassBlockReplaceables, Blocks.OBSIDIAN.getDefaultState()));
-//        List<OreFeatureConfig.Target> endStonePlaceGrass = List.of(OreFeatureConfig.createTarget(grassBlockReplaceables, Blocks.END_STONE.getDefaultState()));
-//
-//        register(context, OBSIDIAN_KEY, Feature.ORE, new OreFeatureConfig(obsidianPlaceGrass, 30));
-//        register(context, END_STONE_KEY, Feature.ORE, new OreFeatureConfig(endStonePlaceGrass, 30));
+        // 凋零玫瑰
+        register(context, WITHER_ROSE_KEY, Feature.SIMPLE_BLOCK,
+                new SimpleBlockFeatureConfig(
+                        SimpleBlockStateProvider.of(Blocks.WITHER_ROSE.getDefaultState())
+                )
+        );
+
     }
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {

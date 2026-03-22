@@ -1,9 +1,9 @@
 {
-  "feature": "stone_world:obsidian",
+  "feature": "stone_world:soul_sand_surface",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 50
+      "count": 80
     },
     {
       "type": "minecraft:in_square"
@@ -13,10 +13,10 @@
       "height": {
         "type": "minecraft:uniform",
         "max_inclusive": {
-          "absolute": 200
+          "absolute": 320
         },
         "min_inclusive": {
-          "absolute": -50
+          "absolute": 60
         }
       }
     },
